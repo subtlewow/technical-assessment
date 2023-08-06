@@ -4,6 +4,39 @@
 - [Getting Started](#getting_started)
 - [Usage](#usage)
 
+## Task
+
+This service provides a REST API for uploading flight data and generating reports based on the data.
+
+## API Endpoints:
+### PUT /data/{flight-id}
+
+Used to upload a CSV file with flight data.
+The user provides the flight-id at their discretion; it can be any valid URL-encoded string. Please note that the length of the string should not exceed 255 characters.
+If data with the given flight-id already exists, the new data will overwrite the existing data.
+
+### GET /report/{flight-id}
+
+Returns the report for the specified flight-id.
+If a report is not yet ready or does not exist, the endpoint will return a 404 error.
+
+### GET /report
+
+Returns a list of available reports.
+
+## Data Processing:
+For each flight, the service performs the following steps:
+
+#### 1. Data Ingestion and Cleaning
+
+The service ingests the flight data from the uploaded CSV file.
+It then cleans the data by removing duplicate datapoints and handling missing datapoints. The method used to handle missing datapoints is [describe your method here]. This method was chosen because [describe your reasoning here].
+#### 2. Report Generation
+
+The service uses the cleaned data to generate a report for the flight.
+The report includes an overall summary of the flight, with charts for all channels.
+The report identifies any channel with a rate of change higher than 5 °C/s and specifies the time period(s) (in missionTime) where this exceedance occurs.
+
 ## Getting Started <a name = "getting_started"></a>
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
@@ -33,19 +66,13 @@ conda install flask=2.3.2 matplotlib=3.5.1 pandas=1.4.3
 
 - For uploading the CSV file, I used Postman to interact with my APIs. Download Postman, create a new collection, run my local script, and then make a PUT request to the `/data/<flight_id>` endpoint with the CSV file attached in the request body. The query should return as below.
 
-![Alt text](readme-imags/image.png)
-
 - You'll need to run `PUT /data/{flight-id}`, then either `GET /report/{flight-id}` or `GET /report` in that order. 
 
 - Once you run the PUT request, a CSV file is generated in local folder `staticFiles`.
 
 - Once you run `GET /report/{flight-id}`, a pdf report is generated in the folder `reports`, as well as summary stats belonging to that metric.
 
-![Alt text](readme-imags/image-1.png)
-
 - Lastly, `GET /report` simply returns a JSON object of report names
-
-![Alt text](readme-imags/image-2.png)
 
 ## Usage via Command Line
 
