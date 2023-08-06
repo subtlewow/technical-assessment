@@ -30,7 +30,8 @@ For each flight, the service performs the following steps:
 #### 1. Data Ingestion and Cleaning
 
 The service ingests the flight data from the uploaded CSV file.
-It then cleans the data by removing duplicate datapoints and handling missing datapoints. The method used to handle missing datapoints is [describe your method here]. This method was chosen because [describe your reasoning here].
+It then cleans the data by removing duplicate datapoints and handling missing datapoints. 
+
 #### 2. Report Generation
 
 The service uses the cleaned data to generate a report for the flight.
